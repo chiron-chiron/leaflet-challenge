@@ -1,59 +1,43 @@
-// Add console.log to check to see if our code is working.
-console.log("working");
+// Creating map
+var myMap = L.map("mapid", {
+    center: [39.41, -111, 95],
+    zoom: 5,
+    layers: [light]
+});
 
-// We create the tile layer that will be the background of our map.
-let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
+
+// Creating Tile Layers
+var light = L.titleLayer("https://api.mapbox.com/styles/v1/{id}/titles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "© <a href= 'https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_black'>Improve this map</a></strong>",
+    tileSize: 480,
+    maxZoom: 14,
+    zoomOffset: -1,
+    id: "mapbox/light-v10",
     accessToken: API_KEY
 });
 
-// We create the second tile layer that will be the background of our map.
-let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
+var dark = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    tileSize: 480,
+    maxZoom: 14,
+    zoomOffset: -1,
+    id: "mapbox/dark-v10",
     accessToken: API_KEY
 });
 
-// We create a third tile layer that will be the background of our map.
-let dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
+var satellite = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "© <a href= 'https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    tileSize: 480,
+    maxZoom: 14,
+    zoomOffset: -1,
+    id: "mapbox/satellite-v9",
     accessToken: API_KEY
 });
 
-// Create the map object with center, zoom level and default layer.
-let map = L.map('mapid', {
-    center: [40.7, -94.5],
-    zoom: 3,
-    layers: [streets]
-});
 
-// Create a base layer that holds all three maps.
-let baseMaps = {
-  "Streets": streets,
-  "Satellite": satelliteStreets,
-  "Dark": dark
-};
-
-// 1. Add a 3rd layer group for the major earthquake data.
-let allEarthquakes = new L.LayerGroup();
-let tectonicplates = new L.LayerGroup();
-let majorEarthquakes = new L.LayerGroup();
-
-// 2. Add a reference to the major earthquake group to the overlays object.
-let overlays = {
-  "Tectonic Plates": tectonicplates,
-  "Earthquakes": allEarthquakes,
-  "Major Earthquakes": majorEarthquakes
-};
-
-// Then we add a control to the map that will allow the user to change which
-// layers are visible.
-L.control.layers(baseMaps, overlays).addTo(map);
 
 // Creating Earthquake Layers
-var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
+var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geogjson";
 
 function markerSize(Magnitude) {return Magnitude * 20000};
 
@@ -131,6 +115,12 @@ d3.json(platesInfo).then(function (data2) {
 
 
 // Creating Layer Control
+var baseMaps = {
+    Light: light,
+    Dark: dark,
+    Satellite: satellite
+};
+
 var overlayMaps = {
     Earthquake: earthquake,
     Plates: plates

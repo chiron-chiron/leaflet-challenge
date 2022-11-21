@@ -1,38 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Leaflet-Challenge</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Leaflet-Basic-Map</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
 
-
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css"
-    integrity="sha512-dba61809013cd61fb73086a0b5ee2d50514c113408872e0a87e4bd8a688f1257d289fb56cf33b9e9406dc46523521b198fa98f91051fd00eede6d2dd6fb2af85=="
-    crossorigin="" />>
-
-
-  <!-- Our CSS -->
-  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <!-- d3 JavaScript -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 <body>
+    <!-- The div that holds our map -->
+    <div id="mapid"></div>
 
-  <!-- The div that holds our map -->
-  <div id="map"></div>
-
-  <!-- D3-->
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-
-  <!-- Leaflet JavaScript -->
-  <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"
-    integrity="sha512-f07677c798e2fa4cc80930aef9510e9a733628f5f965dc32e69ad06c39e6d29108173a2a7f1bacdae5acef0acfd2980c4ec669ef8f06d3a1cd2c4be5fe8f3556=="
-    crossorigin=""></script>
-  
-  <!-- API Key -->
-  <script type="text/javascript" src="static/js/config.js"></script>
-
-  <!-- Our JavaScript -->
-  <script type="text/javascript" src="static/js/logic.js"></script>
+     <!-- Leaflet JavaScript -->
+     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+     crossorigin=""></script>
+    <!-- API key -->
+    <script type="text/javascript" src="static/js/config.js"></script>
+    <!-- Our JavaScript -->
+    <script type="text/javascript" src="static/js/logic.js"></script>
 </body>
 </html>
