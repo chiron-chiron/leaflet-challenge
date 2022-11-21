@@ -1,3 +1,11 @@
+// Creating map
+var myMap = L.map("map", {
+    center: [39.41, -111, 95],
+    zoom: 5,
+    layers: [light]
+});
+
+
 // Creating Tile Layers
 var light = L.titleLayer("https://api.mapbox.com/styles/v1/{id}/titles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href= 'https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_black'>Improve this map</a></strong>",
@@ -27,21 +35,13 @@ var satellite = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
 });
 
 
-// Creating map
-var myMap = L.map("map", {
-    center: [39.41, -111, 95],
-    zoom: 5,
-    layers: [light]
-});
-
-
 // Creating Earthquake Layers
 var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geogjson";
 
 function markerSize(Magnitude) {return Magnitude * 20000};
 
 var earthquake = new L.LayerGroup();
-d3.json(url).then(function (data)) {
+d3.json(url).then(function (data) {
     var features = data.features;
     console.log(features)
     for (var i = 0; i < features.length; i++) {
@@ -67,7 +67,7 @@ d3.json(url).then(function (data)) {
         }
         L.circle([features[i].geometry.coordinates[i], features[i].geometry.coordinates[0]], {
             fillOpacity: 1,
-            color: "black",
+            color: fillcolor,
             weight: 0.75,
             opacity: 0.75,
             fillColor: fillcolor,
@@ -93,6 +93,24 @@ legend.onAdd = function () {
 legend.addTo(myMap);
 document.querySelector(".legend").style.background = "#f6f6f6";
 document.querySelector(".legend").style.padding = "0px 10px 0px 10px";
+
+
+// Create Playte Layer
+var platesInfo = "data/plates.json"
+
+var plates = new L.LayerGroup();
+d3.json(platesInfo).then(function (data2) {
+    console.log(data2);
+    plates = L.geoJSON(data2, {
+        style:{
+            color: "orange",
+            fillOpacity: 0
+            },
+        onEachFeature: function (features, layer) {
+            layer.bindPopup("Plate: " + features.properties.Platename);
+        }
+    }).addTo(plates);
+});
 
 
 // Creating Layer Control
