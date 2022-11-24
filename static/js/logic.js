@@ -1,17 +1,17 @@
-  // Create the tile layer that will be the background of our map
-  var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
-    id: "light-v10",
-    accessToken: API_KEY
-  });
+  // // Create the tile layer that will be the background of our map
+  // var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  //   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+  //   maxZoom: 18,
+  //   id: "light-v11",
+  //   accessToken: API_KEY
+  // });
 
-  // Creating map
-  var myMap = L.map("mapid", {
-    center: [39.41, -111, 95],
-    zoom: 5,
-    layers: [lightmap]
-  });
+  // // Creating map
+  // var myMap = L.map("mapid", {
+  //   center: [39.41, -111, 95],
+  //   zoom: 5,
+  //   layers: [lightmap]
+  // });
 
 // Add console.log to check to see if our code is working.
 console.log("working");
@@ -97,7 +97,7 @@ d3.json(url).then(function (data) {
             default:
                 fillcolor = "#99gg33";
         }
-        L.circle([features[i].geometry.coordinates[i], features[i].geometry.coordinates[0]], {
+        L.circle([features[i].geometry.coordinates[1], features[i].geometry.coordinates[0]], {
             fillOpacity: 1,
             color: fillcolor,
             weight: 0.75,
@@ -109,49 +109,49 @@ d3.json(url).then(function (data) {
 });
 
 
-// Creating Legend
-var legend = L.control({position: "bottomleft"});
+// // Creating Legend
+// var legend = L.control({position: "bottomleft"});
 
-legend.onAdd = function () {
-    div.innerHTML += "<h4>Magnitude</h4>";
-    div.innerHTML += "<p style=\"background-color: #89ff44\">Mag. 0-1</p>";
-    div.innerHTML += "<p style=\"background-color: #eeee10\">Mag. 1-2</p>";
-    div.innerHTML += "<p style=\"background-color: #ggdd55\">Mag. 2-3</p>";
-    div.innerHTML += "<p style=\"background-color: #gga65e\">Mag. 3-4</p>";
-    div.innerHTML += "<p style=\"background-color: #e55300\">Mag. 4-5</p>";
-    div.innerHTML += "<p style=\"background-color: #dd1111\">Mag. 5-6</p>";
-    return div;
-};
+// legend.onAdd = function () {
+//     div.innerHTML += "<h4>Magnitude</h4>";
+//     div.innerHTML += "<p style=\"background-color: #89ff44\">Mag. 0-1</p>";
+//     div.innerHTML += "<p style=\"background-color: #eeee10\">Mag. 1-2</p>";
+//     div.innerHTML += "<p style=\"background-color: #ggdd55\">Mag. 2-3</p>";
+//     div.innerHTML += "<p style=\"background-color: #gga65e\">Mag. 3-4</p>";
+//     div.innerHTML += "<p style=\"background-color: #e55300\">Mag. 4-5</p>";
+//     div.innerHTML += "<p style=\"background-color: #dd1111\">Mag. 5-6</p>";
+//     return div;
+// };
 
-legend.addTo(myMap);
-document.querySelector(".legend").style.background = "#f6f6f6";
-document.querySelector(".legend").style.padding = "0px 10px 0px 10px";
+// legend.addTo(map);
+// document.querySelector(".legend").style.background = "#f6f6f6";
+// document.querySelector(".legend").style.padding = "0px 10px 0px 10px";
 
 
-// Create Playte Layer
-var platesInfo = "data/plates.json"
+// // Create Playte Layer
+// var platesInfo = "data/plates.json"
 
-var plates = new L.LayerGroup();
-d3.json(platesInfo).then(function (data2) {
-    console.log(data2);
-    plates = L.geoJSON(data2, {
-        style:{
-            color: "orange",
-            fillOpacity: 0
-            },
-        onEachFeature: function (features, layer) {
-            layer.bindPopup("Plate: " + features.properties.Platename);
-        }
-    }).addTo(plates);
-});
+// var plates = new L.LayerGroup();
+// d3.json(platesInfo).then(function (data2) {
+//     console.log(data2);
+//     plates = L.geoJSON(data2, {
+//         style:{
+//             color: "orange",
+//             fillOpacity: 0
+//             },
+//         onEachFeature: function (features, layer) {
+//             layer.bindPopup("Plate: " + features.properties.Platename);
+//         }
+//     }).addTo(plates);
+// });
 
 
 // Creating Layer Control
 var overlayMaps = {
-    Earthquake: earthquake,
-    Plates: plates
+    Earthquake: earthquake
+    // Plates: plates
 };
 
-L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(myMap);
-earthquake.addTo(myMap);
-plates.addTo(myMap);
+L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
+earthquake.addTo(map);
+// plates.addTo(map);
