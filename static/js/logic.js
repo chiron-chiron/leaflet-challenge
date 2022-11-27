@@ -7,7 +7,7 @@
   // });
 
   // // Creating map
-  // var myMap = L.map("mapid", {
+  // var map = L.map("mapid", {
   //   center: [39.41, -111, 95],
   //   zoom: 5,
   //   layers: [lightmap]
